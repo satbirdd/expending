@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
-    @categories = Category.find_by_pinyin(params[:pinyin])
+    @categories = Category.find_by_pinyin(params[:pinyin]).limit(9)
   end
 
   # GET /categories/1

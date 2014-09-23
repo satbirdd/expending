@@ -11,20 +11,19 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :category_id %><br>
-    <%= f.collection_select :category_id, Category.all, :id, :name %>
+  <div class='translation'>
+    选择分类：<span class='cate'></span><br>
+    花费：<span class='money'></span>元
   </div>
+  
+  <%= f.text_field :category_id %>
+  <%= f.text_field :money %>
 
   <div class="field">
-    <%= f.label :money %><br>
-    <%= f.text_field :money %>
+    <%= f.label :detail %><br>
+    <%= f.text_field :detail %>
   </div>
 
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
-  </div>
   <div class="field">
     <%= f.label :date %><br>
     <%= f.date_select :date %>
@@ -33,3 +32,92 @@
     <%= f.submit "提交" %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+  var categories, cateCode, cateId, money, map = {};
+
+  $(function (event) {
+    $('#item_detail').keyup(function (event) {
+      var $input = $(this)
+        , value = $input.val().replace('，', ',') // replace chinese comma to english comma
+        , newCateCode;
+
+      // comma is the key
+      if (!~value.indexOf(',')) {
+        if (end_with_number(value)) {
+          var index = 1 * value[value.length - 1]
+            , category = categories[index - 1];
+
+          cateId = category.id;
+          $('#item_category_id').val(cateId);
+
+          refresh_translation_category([category])
+        } else if (value !== '' && value !== null) {
+          $.getJSON('/categories?pinyin=' + value)
+           .then(translate);
+        }
+      } else {
+        money = value.split(',')[1];
+        $('#item_money').val(money);
+
+        refresh_translation_money(money);
+      }
+
+      // newCateCode = value.split(',')[0];
+      // debugger
+
+
+      function translate (data, status) {
+        if (data.length == 1) {
+          cateId = data[0]['id'];
+          $('#item_category_id').val(cateId);
+
+          refresh_translation_category(data);
+        } else {
+          categories = data;
+          refresh_translation_category(data);
+        }
+      }
+
+      function get_number_photo (number) {
+        var photo_map = {
+          1: '①',
+          2: '②',
+          3: '③',
+          4: '④',
+          5: '⑤',
+          6: '⑥',
+          7: '⑦',
+          8: '⑧',
+          9: '⑨'
+        }
+        return photo_map[number + 1];
+      }
+
+      function refresh_translation_category (data) {
+        var $cate = $('.translation .cate');
+
+        if (data.length === 0) {
+          $cate.html("No Category Selected!");
+        } else if (data.length === 1) {
+          $cate.html(data[0]["name"]);
+        } else {
+          var html = $.map(data, function (item, index, en) {
+            return get_number_photo(index) + item.name;
+          }).join(', ');
+          $cate.html(html);
+        }
+      }
+
+      function refresh_translation_money (money) {
+        $('.translation .money').html(money);
+      }
+
+      function end_with_number(value) {
+        if (value.length === 0) return false;
+
+        return (1 * value[value.length - 1]) > 0;
+      }
+    });
+  });
+</script>
