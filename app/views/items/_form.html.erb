@@ -15,15 +15,21 @@
     <%= f.label :category_id %><br>
     <%= f.collection_select :category_id, Category.all, :id, :name %>
   </div>
+
+  <div class="field">
+    <%= f.label :money %><br>
+    <%= f.text_field :money %>
+  </div>
+
   <div class="field">
     <%= f.label :description %><br>
     <%= f.text_field :description %>
   </div>
   <div class="field">
     <%= f.label :date %><br>
-    <%= f.datetime_select :date %>
+    <%= f.date_select :date %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "提交" %>
   </div>
 <% end %>
