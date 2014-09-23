@@ -3,5 +3,5 @@ Rails.application.routes.draw do
 
   resources :categories
 
-  root "items#index"
+  root "items#new"
 end
