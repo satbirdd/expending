@@ -4,7 +4,12 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    @items = Item.all
+    # @items = Item.all
+    @year_total = Item.year.sum(:money)
+    @year_days = (Time.new - Time.new.beginning_of_year).to_i
+    @month_total = Item.month.sum(:money)
+    @month_days = (Time.new - Time.new.beginning_of_month).to_i
+    @day_total = Item.day.sum(:money)
   end
 
   # GET /items/1
