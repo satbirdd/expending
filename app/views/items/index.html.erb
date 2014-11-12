@@ -1,5 +1,6 @@
 <h3>支出一览表</h3>
 
+<!-- summary of year, month and today's expanding -->
 <table class='table'>
   <thead>
     <tr>
@@ -28,6 +29,63 @@
   </tbody>
 </table>
 
-<br>
+<!-- list of today's items -->
+<table class='table'>
+  <thead>
+    <tr>
+      <th>序号</th>
+      <th>分类</th>
+      <th>金额</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @today_items.each_with_index do |item, index| %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><%= item.category.name %></td>
+        <td><%= item.money %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<table class='table'>
+  <thead>
+    <tr>
+    <% @recent_10_days_total.each do |day_total| %>
+      <th>
+        <%= "#{day_total[:time].month}月#{day_total[:time].day}日" %>
+      </th>
+    <% end %>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <% @recent_10_days_total.each do |day_total| %>
+          <td><%= day_total[:expending] %></td>
+        <% end %>        
+      </tr>
+  </tbody>
+</table>
+
+<table class='table'>
+  <thead>
+    <tr>
+    <% @recent_10_months_total.each do |day_total| %>
+      <th>
+        <%= "#{day_total[:time].year}年#{day_total[:time].month}月" %>
+      </th>
+    <% end %>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <% @recent_10_months_total.each do |day_total| %>
+          <td><%= day_total[:expending] %></td>
+        <% end %>        
+      </tr>
+  </tbody>
+</table>
 
 <%= link_to 'New Item', new_item_path %>

@@ -5,11 +5,25 @@ class ItemsController < ApplicationController
   # GET /items.json
   def index
     # @items = Item.all
+    now = Time.now
     @year_total = Item.year.sum(:money)
-    @year_days = (Time.new - Time.new.beginning_of_year).to_i
+    @year_days = (now - now.beginning_of_year).to_i
     @month_total = Item.month.sum(:money)
-    @month_days = (Time.new - Time.new.beginning_of_month).to_i
+    @month_days = (now - now.beginning_of_month).to_i
     @day_total = Item.day.sum(:money)
+    @today_items = Item.day
+
+    @recent_10_days_total = (1..10).map do |index|
+      time = now.days_ago(index)
+      expending = Item.of_day(time).sum(:money)
+      { time: time, expending: expending }
+    end.reverse
+
+    @recent_10_months_total = (1..10).map do |index|
+      time = now.months_ago(index)
+      expending = Item.of_month(time).sum(:money)
+      { time: time, expending: expending }
+    end.reverse
   end
 
   # GET /items/1
