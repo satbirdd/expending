@@ -19,7 +19,18 @@ roots = {
   其他: []
 }
 
+income_roots = {
+  工资收入: %(薪水 奖金 兼职),
+  资产收入: %(租金 股票证券),
+  其他收入: []
+}
+
 roots.each do |root_cate, child_cate|
   root = Category.roots.create(name: root_cate.to_s)
+  child_cate.each { |name| root.children.create(name: name) }
+end
+
+income_roots.each do |root_cate, child_cate|
+  root = IncomeCategory.roots.create(name: root_cate.to_s)
   child_cate.each { |name| root.children.create(name: name) }
 end
