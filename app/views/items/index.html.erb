@@ -5,8 +5,8 @@
   <thead>
     <tr>
       <th>时段</th>
-      <th>合计</th>
-      <th>平均</th>
+      <th>支出</th>
+      <th>收入</th>
     </tr>
   </thead>
 
@@ -14,12 +14,12 @@
     <tr>
       <td>本年</td>
       <td><%= @year_total %></td>
-      <td><%= (@year_total / @year_days).round(1) %></td>
+      <td></td>
     </tr>
     <tr>
       <td>本月</td>
       <td><%= @month_total %></td>
-      <td><%= (@year_total / @month_days).round(1) %></td>
+      <td></td>
     </tr>
     <tr>
       <td>今天</td>

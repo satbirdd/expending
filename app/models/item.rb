@@ -1,7 +1,7 @@
 class Item < ActiveRecord::Base
-  scope :year, -> { where("created_at > ?", Time.now.beginning_of_year) }
-  scope :month, -> { where("created_at > ?", Time.now.beginning_of_month) }
-  scope :day, -> { where("created_at > ?", Time.now.beginning_of_day) }
+  scope :of_this_year, -> { where("created_at > ?", Time.now.beginning_of_year) }
+  scope :of_this_month, -> { where("created_at > ?", Time.now.beginning_of_month) }
+  scope :of_day, -> { where("created_at > ?", Time.now.beginning_of_day) }
 
   belongs_to :category
 

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @income_category.name %>
+</p>
+
+<p>
+  <strong>Ancestry:</strong>
+  <%= @income_category.ancestry %>
+</p>
+
+<p>
+  <strong>Pinyin:</strong>
+  <%= @income_category.pinyin %>
+</p>
+
+<%= link_to 'Edit', edit_income_category_path(@income_category) %> |
+<%= link_to 'Back', income_categories_path %>

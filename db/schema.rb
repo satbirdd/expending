@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140923075420) do
+ActiveRecord::Schema.define(version: 20141125141828) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -20,6 +20,24 @@ ActiveRecord::Schema.define(version: 20140923075420) do
     t.string   "pinyin"
     t.string   "ancestry"
   end
+
+  create_table "income_categories", force: true do |t|
+    t.string   "name"
+    t.string   "ancestry"
+    t.string   "pinyin"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "income_items", force: true do |t|
+    t.integer  "income_category_id"
+    t.decimal  "money",              precision: 10, scale: 2
+    t.date     "date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "income_items", ["income_category_id"], name: "index_income_items_on_income_category_id", using: :btree
 
   create_table "items", force: true do |t|
     t.integer  "category_id"

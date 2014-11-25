@@ -6,24 +6,12 @@ class ItemsController < ApplicationController
   def index
     # @items = Item.all
     now = Time.now
-    @year_total = Item.year.sum(:money)
-    @year_days = (now - now.beginning_of_year).to_i
-    @month_total = Item.month.sum(:money)
-    @month_days = (now - now.beginning_of_month).to_i
-    @day_total = Item.day.sum(:money)
+    @year_total = Item.of_this_year.sum(:money)
+    @month_total = Item.of_this_month.sum(:money)
+    @day_total = Item.of_day.sum(:money)
     @today_items = Item.day
 
-    @recent_10_days_total = (1..10).map do |index|
-      time = now.days_ago(index)
-      expending = Item.of_day(time).sum(:money)
-      { time: time, expending: expending }
-    end.reverse
-
-    @recent_10_months_total = (1..10).map do |index|
-      time = now.months_ago(index)
-      expending = Item.of_month(time).sum(:money)
-      { time: time, expending: expending }
-    end.reverse
+    @recent_10_days_total = Item.where('created_at > DATE_SUB(?, INTERVAL 9 DAY)', now).group('DATE(created_at)')
   end
 
   # GET /items/1
