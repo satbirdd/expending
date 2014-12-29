@@ -1,5 +1,4 @@
 class Category < ActiveRecord::Base
-  validates :name, uniqueness: true, presence: true
 
   has_many :spends, class_name: 'Item'
 
@@ -7,14 +6,14 @@ class Category < ActiveRecord::Base
 
   has_ancestry
 
-  class << self
-    def find_by_pinyin(name)
-      return all if name.blank?
+  validates :name, uniqueness: true, presence: true
 
+  scope :find_by_pinyin, -> (name) {
+    if name.present?
       pinyin = PinYin.of_string(name).join
       where("pinyin LIKE ?", "%#{pinyin}%")
     end
-  end
+  }
 
   protected
     def generate_pinyin

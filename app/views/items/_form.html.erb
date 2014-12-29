@@ -71,6 +71,10 @@
           refresh_translation_category(data);
         } else {
           categories = data;
+          if (categories.length > 9) {
+            categories.length = 9;
+          }
+
           refresh_translation_category(data);
         }
       }

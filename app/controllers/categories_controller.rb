@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
-    @categories = Category.find_by_pinyin(params[:pinyin]).limit(9)
+    @categories = Category.find_by_pinyin(params[:pinyin])
   end
 
   # GET /categories/1
@@ -15,6 +15,7 @@ class CategoriesController < ApplicationController
   # GET /categories/new
   def new
     @category = Category.new
+    @category.parent_id = params[:parent_id]
   end
 
   # GET /categories/1/edit
@@ -69,6 +70,6 @@ class CategoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def category_params
-      params.require(:category).permit(:name)
+      params.require(:category).permit(:name, :parent_id)
     end
 end
