@@ -61,7 +61,6 @@ GEM
     mime-types (1.25.1)
     minitest (5.4.1)
     multi_json (1.10.1)
-    mysql2 (0.3.16)
     pg (0.17.1)
     polyglot (0.3.5)
     pry (0.10.1)
@@ -138,7 +137,6 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   jbuilder (~> 2.0)
   jquery-rails
-  mysql2
   pg
   pry-rails (~> 0.3.0)
   rails (= 4.1.5)

@@ -11,11 +11,11 @@ class ItemsController < ApplicationController
     @day_total = Item.of_day.sum(:money)
     @today_items = Item.of_day
 
-    @recent_10_days_total = Item.where('created_at > DATE_SUB(?, INTERVAL 9 DAY)', now)
-        .group('DATE(date)')
-    @recent_10_months_total = Item.where('created_at > DATE_SUB(?, INTERVAL 9 MONTH)', now)
-        .select("items.date, SUM(items.money) AS total")
-        .group('MONTH(date)')
+    @recent_10_days_total = Item.where("created_at > current_timestamp - INTERVAL '9' DAY")
+        .group('DATE(date), items.id')
+    @recent_10_months_total = Item.where("created_at > current_timestamp - INTERVAL '9' MONTH")
+        .select("items.id, items.date, SUM(items.money) AS total")
+        .group('EXTRACT(MONTH FROM date), items.id')
   end
 
   # GET /items/1
