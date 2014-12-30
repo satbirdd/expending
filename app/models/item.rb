@@ -1,7 +1,4 @@
 class Item < ActiveRecord::Base
-  scope :of_this_year, -> { where("created_at > ?", Time.now.beginning_of_year) }
-  scope :of_this_month, -> { where("created_at > ?", Time.now.beginning_of_month) }
-  scope :of_day, -> { where("created_at > ?", Time.now.beginning_of_day) }
 
   belongs_to :category
 
@@ -11,12 +8,19 @@ class Item < ActiveRecord::Base
   attr_accessor :detail
 
   class << self
-    def of_day(time)
-      where('created_at BETWEEN ? AND ?', time.beginning_of_day, time.end_of_day)
+    def of_day(date = Date.current)
+      date = Date.current if date.blank?
+      where('date = ?', date.to_date)
     end
 
-    def of_month(time)
-      where('created_at BETWEEN ? AND ?', time.beginning_of_month, time.end_of_month)
+    def of_month(time = Time.now)
+      time = Time.now if time.blank?
+      where('date BETWEEN ? AND ?', time.beginning_of_month, time.end_of_month)
+    end
+
+    def of_year(time = Time.now)
+      time = Time.now if time.blank?
+      where('date BETWEEN ? AND ?', time.beginning_of_year, time.end_of_year)
     end
   end
 end

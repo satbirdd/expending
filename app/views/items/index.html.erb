@@ -55,7 +55,7 @@
     <tr>
     <% @recent_10_days_total.each do |day_total| %>
       <th>
-        <%= "#{day_total[:time].month}月#{day_total[:time].day}日" %>
+        <%= "#{day_total.date.month}月#{day_total.date.day}日" %>
       </th>
     <% end %>
     </tr>
@@ -63,7 +63,7 @@
   <tbody>
       <tr>
         <% @recent_10_days_total.each do |day_total| %>
-          <td><%= day_total[:expending] %></td>
+          <td><%= day_total.money %></td>
         <% end %>        
       </tr>
   </tbody>
@@ -74,7 +74,7 @@
     <tr>
     <% @recent_10_months_total.each do |day_total| %>
       <th>
-        <%= "#{day_total[:time].year}年#{day_total[:time].month}月" %>
+        <%= "#{day_total.date.year}年#{day_total.date.month}月" %>
       </th>
     <% end %>
     </tr>
@@ -82,7 +82,7 @@
   <tbody>
       <tr>
         <% @recent_10_months_total.each do |day_total| %>
-          <td><%= day_total[:expending] %></td>
+          <td><%= day_total.total %></td>
         <% end %>        
       </tr>
   </tbody>
