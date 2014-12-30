@@ -74,7 +74,7 @@
     <tr>
     <% @recent_10_months_total.each do |day_total| %>
       <th>
-        <%= "#{day_total.date.year}年#{day_total.date.month}月" %>
+        <%= "#{day_total.month.to_i}月" %>
       </th>
     <% end %>
     </tr>
