@@ -12,8 +12,8 @@
   <% end %>
 
   <div class='translation'>
-    选择分类：<span class='cate'></span><br>
-    花费：<span class='money'></span>元
+    选择分类：<span class='cate'><%= @item.category.try(:name) %></span><br>
+    花费：<span class='money'><%= @item.money %></span>元
   </div>
   
   <%= f.hidden_field :category_id %>
