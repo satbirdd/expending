@@ -52,24 +52,26 @@
   </tbody>
 </table>
 
-<table class='table'>
-  <thead>
-    <tr>
-    <% @recent_10_days_total.each do |day_total| %>
-      <th>
-        <%= "#{day_total.date.month}月#{day_total.date.day}日" %>
-      </th>
-    <% end %>
-    </tr>
-  </thead>
-  <tbody>
+<% @recent_10_days_total.each_slice(5) do |days_total| %>
+  <table class='table'>
+    <thead>
       <tr>
-        <% @recent_10_days_total.each do |day_total| %>
-          <td><%= day_total.total %></td>
-        <% end %>        
+      <% days_total.each do |day_total| %>
+        <th>
+          <%= "#{day_total.date.month}月#{day_total.date.day}日" %>
+        </th>
+      <% end %>
       </tr>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+        <tr>
+          <% days_total.each do |day_total| %>
+            <td><%= day_total.total %></td>
+          <% end %>        
+        </tr>
+    </tbody>
+  </table>
+<% end %>
 
 <table class='table'>
   <thead>

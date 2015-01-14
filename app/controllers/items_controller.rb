@@ -20,6 +20,7 @@ class ItemsController < ApplicationController
         .select("EXTRACT(MONTH FROM date) AS month, SUM(items.money) AS total")
         .group('month')
         .order('month asc')
+    @items = Item.all
   end
 
   # GET /items/1
