@@ -1,3 +1,3 @@
 <% @categories.each do |cate| %>
-  name: <%= cate.name %>, parent: <%= cate.parent.name %>
+  name: <%= cate.name %>, parent: <%= cate.parent.try(:name) || 'nil' %>
 <% end %>
