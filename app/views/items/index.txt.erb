@@ -1,3 +1,3 @@
 <% @items.each do |item| %>
-  id: <%= item.id %>, category_id: <%= item.category_id %>, description: '<%= item.description %>', date: '<%= item.date %>', created_at: '<%= item.created_at %>', updated_at: '<%= item.updated_at %>', money: <%= item.money %>
+  category: <%= item.category.name %>, description: '<%= item.description %>', date: '<%= item.date %>', created_at: '<%= item.created_at %>', updated_at: '<%= item.updated_at %>', money: <%= item.money %>
 <% end %>
